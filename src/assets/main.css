@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
+/* variables */
+:root {
+  --primary: #4f515a;
+  --secondary: #a7b4cc;
+  --warning: #da0f41;
+}
+
+/* base styles  */
+#app {
+  min-height: 100vh;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  color: var(--primary);
+}
+a {
+  text-decoration: none;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* buttons */
+button { 
+  background: var(--secondary);
+  border-radius: 8px;
+  border: 0;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+}
+button:hover {
+  background: var(--primary);
+  color: white;
+}
+button:disabled {
+  opacity: 0.5;
+  color: var(--primary);
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+/* forms */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 3px rgba(50,50,50,0.05);
+  border: 1px solid  var(--secondary);
+  background: white;
+  margin-top: 10%;
+  box-shadow: 11px 8px 7px 3px rgb(0 0 0 / 35%);
+}
+input{
+  border: 0;
+  border-bottom: 1px solid var(--secondary);
+  padding: 10px;
+  outline: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+input:disabled{
+  opacity: 0.3;
+}
+
+textarea {
+  border: 0;
+  border-bottom: 1px solid var(--secondary);
+  outline: none;
+  width: 100%;
+  margin: auto;
+}
+
+
+/*color of number of won and lost games*/
+.w{
+  color:green;
+}
+.l{
+  color:red;
+}
+
+textarea {
+  resize: none;
+}
+.route{
+  padding: 5px;
+  text-decoration: underline;
+}
+
+/* error text */
+.error {
+  color: var(--warning);
+  font-size: 14px;
+  margin: 16px 0;
+  text-align: center;
+}
+
+/*scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
+.surrender{
+  margin:0 auto;
+  display:block!important;
+}
+
+.icon{
+  margin-right: 20px;
+}
+
+
+
+/*media*/
+@media (min-width: 576px){
+  body {
+    background: #f7f7f7;
+    min-height: 100%;
+  }
+}
+@media only screen and (max-width: 575px) {
+  body {
+    background-image: url("./stos.png");
+  }
+  .row{
+      background-color:rgba(255, 255, 255, 0.8);
+  }
+}
