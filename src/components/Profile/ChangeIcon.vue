@@ -8,12 +8,8 @@
         <h5>Click on icon to change</h5>
         <img :src="profile.icon" @click="handleClick" width="150" class="owned"/>
       </div>
-
-      <!--editing view  -->
       <div v-else>
-        <!--check if all icons got loaded -->
         <div class="allicons">
-          <!--display all icons and add special class depending what was last clicked -->
           <div
             v-for="doc in icons"
             :key="doc.iconurl"

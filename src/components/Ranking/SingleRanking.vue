@@ -5,39 +5,25 @@
   -->
     <td v-if="profile">
       <router-link :to="{name: 'Profile', params:{id: profile.id}}" 
-      v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()"
-      
-      class="shown"
-      >
-        <img :src="profile.icon" width="70" 
-        :class="{owned: profile.id == user.uid}"
-        >
+      v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()" class="shown">
+        <img :src="profile.icon" width="70" :class="{owned: profile.id == user.uid}">
       </router-link>
-      </td>
+    </td>
         <td v-if="profile">
-          <div
-          v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()"
-         
-          class="shown"
-          >
-          {{rank.place}}.</div>
+          <div v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()" class="shown">
+          {{rank.place}}.
+          </div>
         </td>
         <td v-if="profile">
-          <div 
-          v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()"
-          
-          class="shown"
-          >
-          {{profile.name}}</div>
-          </td>
+          <div v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()" class="shown">
+          {{profile.name}}
+          </div>
+        </td>
         <td v-if="profile">
-          <div v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()"
-          
-          class="shown"
-          >
+          <div v-if="profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()" class="shown">
             Points :{{rank.points}}
           </div>
-          </td>
+        </td>
 </template>
 
 <script>

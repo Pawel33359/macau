@@ -3,10 +3,9 @@
     <div class="col-md-8 col-xs-12 order-sm-2 col-sm-6">
       <Title />
       <div v-if="error" class="error">{{ error }}</div>
-      <!--user info-->
+
       <UserInfo :id="user.uid"/>
       <div class="menu">
-        <!--buttons-->
         <button 
           class="page"
           @click="$router.push({ name: 'Search'})"
@@ -24,7 +23,6 @@
         <button  class="page"
           @click="$router.push({ name: 'Friends', params: { id: 'all' }})"
         >Friendlist</button>
-
         <button @click="handleClick" class="logout">Logout</button>
       </div>
     </div>

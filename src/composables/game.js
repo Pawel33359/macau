@@ -13,45 +13,35 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
     const { addDat: addturn } = useDatabase("tables/" + table.id + "/currentturn/");
 
             //54 cards 13 of each suit plus 2 jokers
-            var cards = "cccccccccccccdddddddddddddhhhhhhhhhhhhhsssssssssssssjj"
-
-            var objecthand = {}
-            var middlecard = datdocs.middlecard
-            //hand
-            var hand = datplayer.cards
-
-            //cards information
-            var suit = ""
-            var value = 0
-            var path = ""
             
-        //deal cards
+
+        var objecthand = {}
+        var middlecard = datdocs.middlecard      
+        var hand = datplayer.cards
+        var suit = ""
+        var value = 0
+        var path = ""
+        var cards = "cccccccccccccdddddddddddddhhhhhhhhhhhhhsssssssssssssjj"
         const deal = ()=>{
             for( var usr of table.users){
                 for ( var i = 0; i < 5; i++ ) {
-                    //choose a character from 54 characters
                     suit = cards.charAt(Math.floor(Math.random() * cards.length));
-                    //if joker choose value from 1 to 2, otherwise from 1 to 13
                     if(suit=="j"){
                         value = Math.floor(Math.random() * 2) + 1
                     }else{
-                    value = Math.floor(Math.random() * 13) + 1 
+                        value = Math.floor(Math.random() * 13) + 1 
                     }
-                    //get path save, to an object then push to array and clear before next loop 
                     path = require('@/assets/cards/'+suit+value+".png")
                     objecthand={suit: suit, value: value, id: i, path: path}
                     hand.push(objecthand)
                     suit = ""
                     value = 0
-                    //set card in the middle
                 }
-                middle()
-                //use sort function
-                hand =sorthand(hand).slice(0)
-                //add users and their cards to realtime database
+                hand =  sorthand(hand).slice(0)
                 handdatabase(usr.userid)
                 hand = []
             }
+            middle()
         }
 
         //set middlecard for the first time
@@ -79,21 +69,20 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
         }
 
         //draw card
-        const draw = async(userid)=>{
+
+        const draw = (userid)=>{
         const { documents: playercards } = getDatabase("tables/" + table.id + "/users/" + userid + "/cards/");
         hand = playercards.value
-        //user will draw cards times amount and check if its user turn
         const { documents } = getDatabase("tables/" + table.id);
             if(documents.value.currentturn.turn == datplayer.information.turn){
-                    //choose a character from 54 characters
                     suit = cards.charAt(Math.floor(Math.random() * cards.length));
-                    //if joker choose value from 1 to 2, otherwise from 1 to 13
-                        if(suit=="j"){
-                            value = Math.floor(Math.random() * 2) + 1
-                        }else{
+
+                    if(suit=="j"){
+                        value = Math.floor(Math.random() * 2) + 1
+                    }else{
                         value = Math.floor(Math.random() * 13) + 1 
-                        }
-                        //get path save, to an object then push to array and clear before next loop 
+                    }
+
                     path = require('@/assets/cards/'+suit+value+".png")
                     objecthand={suit: suit, value: value,id: hand.length, path: path}
         
@@ -101,22 +90,16 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
                     suit = ""
                     value = 0
 
-                //sort hand
                 hand =sorthand(hand).slice(0)
-    
-                //change hand in database
+
                 handdatabase(userid)
 
-
-                //decrease demand count if exist
                 if(documents.value.function.amount >0){
                     demanddecrease(documents.value)
                 }
 
-                //changeturn
                 turndatabase(1)
 
-                //clear makao status
                 if(documents.value.makao.user == userid){
                     makao()
                 }
@@ -152,54 +135,37 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
             })
         }
 
-        //throw a card from a hand
-        const throwcard = async(userid,card,nextuserid,previoususerid)=>{
+
+        const throwcard = (userid,card,nextuserid,previoususerid)=>{
             const { documents: playercards } = getDatabase("tables/" + table.id + "/users/" + userid + "/cards/");
             hand = playercards.value
-            //check if you can throw a card if. if yes remove from hand add as middlecard and sort
             const { documents } = getDatabase("tables/" + table.id);
             if(documents.value.currentturn.turn == datplayer.information.turn){
-                //if a value is demanded
                 if(documents.value.function.type == "demandyes"){
                     demandthrow(card,userid,documents.value)
                 }
-
                 else{
-                    //if joker was thrown
-                        if(card.suit == "j"){
-                            middlecard = card
-                            middledatabase()
-                            
-                            hand.splice(card.id, 1)
-                            hand =sorthand(hand).slice(0)
-                            //change hand in database
+                    if(card.suit == "j"){
+                        middlecard = card
+                        middledatabase()
+                        hand.splice(card.id, 1)
+                        hand =sorthand(hand).slice(0)
                         handdatabase(userid)
-
-                        //check if player has only one card left
-
                         if(hand.length == 0){
                             ifvictory(userid,documents.value)
                         }else{
                             functionjoker()
                         }
                     }
-                    //if clicked on card is the same as middle card
                     else if(card.suit == documents.value.middlecard.suit || card.value == documents.value.middlecard.value){
                         middlecard = card
                         middledatabase()
-        
                         hand.splice(card.id, 1)
                         hand = sorthand(hand).slice(0)
-                        //change hand in database
                         handdatabase(userid)
-
-                        //check if player has only one card left
-
-                        //check if player won
                         if(hand.length == 0){
                             ifvictory(userid,documents.value)
                         }else{
-                            //check if it was function card
                             if(card.value == 2 || card.value == 3){
                                 function23(card,nextuserid,userid);
                             }else if(card.value == 4){
@@ -471,9 +437,9 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
 
 
         //check if somebody won
+        
         const ifvictory = async(userid,documents)=>{
                 for(var usr of table.users){
-                    //users for cleanup after game
                     var readyfalseuser = {
                         name: usr.name,
                         userid: usr.userid,
@@ -487,32 +453,25 @@ const game = (table,datplayer,datdocs, profiles, rankings)=>{
                     updateArrayObject('users', readyfalseuser)
                     removeArrayObject('users', currentuser)
                 }
-                //if ranking count points and change database info
                 if(table.ranking == true){
-                    //count points
                     var points = 5
                     for(var i = 2; i<documents.playercount.number;i++){
                         points+=5
                     }
                     rankingresult(points,userid)
                 }
-                //update game and lost count in profile
-                 gameresult(userid)
+                gameresult(userid)
 
-
-                //add message about who won and lost in chat
                 resultinformation(userid,points)
 
-                //remove table from realtime database
                 const { deleteDat } = useDatabase("tables/" + table.id);
                 deleteDat()
-                
-                
-
+       
                 await updateDoc({
                     inprogress: false
                 });
         }
+
         //if its a ranking game count points and victory and loss
         const rankingresult = async(points,userid)=>{
             for(var usr of rankings){

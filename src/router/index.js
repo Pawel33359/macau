@@ -15,48 +15,42 @@ import { projectFirestore } from '../firebase/config'
 import { ref} from '@vue/reactivity'
 
 //check if user is logged in and if he is already sitting at a table
-const requireAuthandTable = async (to,from,next) => {
 
+const requireAuthandTable = async (to,from,next) => {
   let user = projectAuth.currentUser
 
-  if (!user) {//check if user is logged in
+  if (!user) {
     next({ name: 'Login' })
   } else {
+    const tables = ref([])
+    let tableid = null
+    const res = await projectFirestore.collection('tables').get()
 
-  const tables = ref([])
-  let tableid = null
+    tables.value = res.docs.map((doc=>{
+      return {...doc.data(), id: doc.id}
+    })
+    )
 
-  //get all tables
-  const res = await projectFirestore.collection('tables').get()
-
-  tables.value = res.docs.map((doc=>{
-    return {...doc.data(), id: doc.id}
-  })
-  )
-
-  //loop through all tables and in every table loop through all users
-  for(const object of tables.value){
-    for(const singleuser of object.users){
-      if(singleuser.userid == user.uid){
-        tableid = object.id//if user is at table set id
+    for(const object of tables.value){
+      for(const singleuser of object.users){
+        if(singleuser.userid == user.uid){
+          tableid = object.id
+        }
       }
     }
-  }
 
- 
-  if(tableid == null){//if user isn't at any table
-    //console.log(tableid)
-    next()
+    if(tableid == null){
+      next()
+    }
+    else{
+      next({name:'Table',params: { id: tableid }})
+    }
   }
-  else{
-    next({name:'Table',params: { id: tableid }})
-  }
-  }
-
 }
 
 
 //check only if user is logged in 
+
 const requireAuth = (to,from,next) => {
   let user = projectAuth.currentUser
   if (!user) {

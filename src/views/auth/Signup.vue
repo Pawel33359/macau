@@ -59,36 +59,17 @@ export default {
     };
 
     const handleSubmit = async () => {
-      //check if password was repeated correctly
       if (repeat_password.value == password.value) {
-        //check if name already exists
-        //get users with the same name as current name
         const { profiles, load } = getUserprofiles(displayName.value);
-        //wait for the profiles with the same name
         await load();
-        //if there is at least one profile of the same name
         if (profiles.value.length > 0) {
           error.value = "Name already exists!";
         } else {
-          //wait for signup to happen
-          const res = await signup(
-            email.value,
-            password.value,
-            displayName.value
-          );
-          //if there weren't any errors
+          const res = await signup(email.value,password.value,displayName.value);
           if (!error.value) {
-            //get new user
             const { user } = getUser();
-
             {
-              //prepate new profile
-              const { setDoc } = useSetCollection(
-                "user_profile",
-                user.value.uid
-              );
-
-              //created basic profile for new user
+              const { setDoc } = useSetCollection("user_profile",user.value.uid);
               const profile = {
                 icon: require('@/assets/icons/1.png'),
                 description: "",
@@ -97,30 +78,20 @@ export default {
                 createdAt: user.value.metadata.creationTime,
                 name: user.value.displayName,
               };
-              //add new profile
               await setDoc(profile);
             }
-
             {
-              //prepate new ranking
-              const { setDoc } = useSetCollection(
-                "user_ranking",
-                user.value.uid
-              );
-              //created basic ranking for new user
+              const { setDoc } = useSetCollection("user_ranking",user.value.uid);
               const ranking = {
                 ranking_won: 0,
                 ranking_lost: 0,
                 points: 100,
               };
-              //add new ranking
               await setDoc(ranking);
             }
-
-            //redirect to homepage
             router.push({ name: "Home" });
           }
-        } //if password was repeated incorrectly
+        }
       } else {
         error.value = "The password doesn't match!";
         password.value = "";

@@ -70,27 +70,13 @@ export default {
         }
       }
       
-
-      // current user with ready true and false to add to database and remove old
-      var currentuser = {
-          name: props.user.displayName,
-          userid: props.user.uid,
-          ready: true
-        }
-      var pastuser = {
-          name: props.user.displayName,
-          userid: props.user.uid,
-          ready: false
-        }
-      //set to ready
+      var currentuser = {name: props.user.displayName,userid: props.user.uid,ready: true}
+      var pastuser = {name: props.user.displayName,userid: props.user.uid,ready: false}
       const handleReady =async () => {
-        //add another current user with ready: true
         updateArrayObject('users',currentuser)
         ready.value=true
         if(!error.value){
-          //remove old current user with ready: false
           await removeArrayObject('users', pastuser)
-          //check if all users ready and save users for later to add to realtime database
           var inprogr = true
           var playercount = 0
           for( var usr of props.table.users){
@@ -100,20 +86,13 @@ export default {
             }
           }
           if(inprogr == true && playercount > 1){
-            //if game is beginning deal cards here so that it happens only at the beginning of the game
             deal()
-
-            //reload to get all users
             for(var usr of props.table.users){
               const {document: profile} = await getDocument('user_profile', usr.userid);
               profiles.value.push(profile)
               const {document: ranking} = await getDocument('user_ranking', usr.userid);
               rankings.value.push(ranking)
             }
-
-
-
-            // set current turn and number of players
             {
               const { addDat } = useDatabase("tables/" + props.table.id + "/currentturn/");
               addDat({turn: 1})
@@ -130,34 +109,21 @@ export default {
               const { addDat } = useDatabase("tables/" + props.table.id + "/makao/");
               addDat({user: ""})
             }
-
-            //prepare random turns for players and add to realtime database
             var turns = []
-            for(var i = 1; i<=playercount; i++){
-              turns.push(i)
-            }
+            for(var i = 1; i<=playercount; i++){turns.push(i)}
             var result = []
             for(var i = playercount;i>0;i--){
                 var j = Math.floor(Math.random() * (i));
                 result.push((turns[j]))
                 turns.splice(j,1) 
             }
-            //put player information in database
             var order = 0;
             for(var usr of props.table.users){
               const { addDat } = useDatabase("tables/" + props.table.id + "/users/" + usr.userid +"/information/");
-              await addDat({
-                name: usr.name,
-                id: usr.userid,
-                turn: result[order]
-                })
+              await addDat({name: usr.name,id: usr.userid,turn: result[order]})
               order++
             }
-
-            // change inprogress to true in firestore
-            await updateDoc({
-              inprogress: true
-            });
+            await updateDoc({inprogress: true});
           }
         }
         else {
