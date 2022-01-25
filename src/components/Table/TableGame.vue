@@ -36,8 +36,7 @@ export default {
       const { error, removeArrayObject, updateArrayObject, updateDoc } = useDocument("tables", props.table.id);
       const { documents } = getDatabase("tables/" + props.table.id);
 
-      //preparing game logic for child component
-      const {deal} = game(props.table,{cards:[]},[],[],[])
+      
 
 
        //prepare players rankings and profiles because it wont work later
@@ -86,6 +85,7 @@ export default {
             }
           }
           if(inprogr == true && playercount > 1){
+            const {deal} = await game(props.table,{cards:[]},[],[],[])
             deal()
             for(var usr of props.table.users){
               const {document: profile} = await getDocument('user_profile', usr.userid);
