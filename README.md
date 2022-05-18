@@ -1,4 +1,5 @@
 # macau
+This project was made to enable people to play a card game called "macau" online. Frameworks used to make this are: vue.js, Firebase and Bootstrap.
 
 ## Project setup
 ```
