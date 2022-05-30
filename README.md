@@ -1,5 +1,5 @@
 # macau
-This project was made to enable people to play a card game called "macau" online. Frameworks used to make this are: vue.js, Firebase and Bootstrap.
+This project was made to allow people to play a card game called "macau" online. Frameworks used to make this are: vue.js, Firebase and Bootstrap.
 
 ### You can check app at:
 https://macao-4bf61.web.app/signup
