@@ -34,8 +34,6 @@ export default {
 props: ['rank','search',"user"],
     setup(props){
         const { error, document: profile } = getDocument('user_profile',props.rank.id)
-        //const {user}=getUser()  <span class="name">{{user.displayName}}:</span>
-        //console.log(props.rank)  && profile.name.substring(0, search.length).toLowerCase() == search.toLowerCase()
         return{profile, error}
     }
 }

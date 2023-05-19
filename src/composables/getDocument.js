@@ -17,7 +17,6 @@ const getDocument = (collection, id) => {
         error.value = 'that document does not exist'
     }
   }, err => {
-    console.log(err.message)
     error.value = 'could not fetch the data'
   })
 

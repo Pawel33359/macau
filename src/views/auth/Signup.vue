@@ -21,6 +21,7 @@
         <div class="error" v-if="error">{{ error }}</div>
         <button v-if="!isPending">Sign up</button>
         <button v-if="isPending" disabled>Loading</button>
+        <AnonymousLogin />
       </form>
     </div>
 
@@ -42,9 +43,10 @@ import getUserprofiles from "@/composables/getUserprofiles";
 //other
 import { useRouter } from "vue-router";
 import { ref } from "@vue/reactivity";
+import AnonymousLogin from "../../components/AnonymousLogin.vue";
 
 export default {
-  components: { Img, Title },
+  components: { Img, Title, AnonymousLogin },
   setup() {
     const { error, signup, isPending } = useSignup();
     const router = useRouter();
@@ -65,13 +67,20 @@ export default {
         if (profiles.value.length > 0) {
           error.value = "Name already exists!";
         } else {
-          const res = await signup(email.value,password.value,displayName.value);
+          const res = await signup(
+            email.value,
+            password.value,
+            displayName.value
+          );
           if (!error.value) {
             const { user } = getUser();
             {
-              const { setDoc } = useSetCollection("user_profile",user.value.uid);
+              const { setDoc } = useSetCollection(
+                "user_profile",
+                user.value.uid
+              );
               const profile = {
-                icon: require('@/assets/icons/1.png'),
+                icon: require("@/assets/icons/1.png"),
                 description: "",
                 won: 0,
                 lost: 0,
@@ -81,7 +90,10 @@ export default {
               await setDoc(profile);
             }
             {
-              const { setDoc } = useSetCollection("user_ranking",user.value.uid);
+              const { setDoc } = useSetCollection(
+                "user_ranking",
+                user.value.uid
+              );
               const ranking = {
                 ranking_won: 0,
                 ranking_lost: 0,
@@ -100,13 +112,17 @@ export default {
     };
 
     return {
-      email,password,displayName,repeat_password,
-      error,isPending,
-      handleSubmit,eraseError,
+      email,
+      password,
+      displayName,
+      repeat_password,
+      error,
+      isPending,
+      handleSubmit,
+      eraseError,
     };
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

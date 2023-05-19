@@ -4,13 +4,10 @@
       <Title />
       <div v-if="error" class="error">{{ error }}</div>
 
-      <UserInfo :id="user.uid"/>
+      <UserInfo :id="user.uid" />
       <div class="menu">
-        <button 
-          class="page"
-          @click="$router.push({ name: 'Search'})"
-        >
-        Search
+        <button class="page" @click="$router.push({ name: 'Search' })">
+          Search
         </button>
 
         <button
@@ -20,9 +17,12 @@
           Profile
         </button>
 
-        <button  class="page"
-          @click="$router.push({ name: 'Friends', params: { id: 'all' }})"
-        >Friendlist</button>
+        <button
+          class="page"
+          @click="$router.push({ name: 'Friends', params: { id: 'all' } })"
+        >
+          Friendlist
+        </button>
         <button @click="handleClick" class="logout">Logout</button>
       </div>
     </div>

@@ -32,7 +32,6 @@ export default {
     const messages = ref(null);
     onUpdated(() => {
       messages.value.scrollTop = messages.value.scrollHeight;
-      //console.log(messages.value.scrollHeight)
     });
 
     //get name of collection to delete message later

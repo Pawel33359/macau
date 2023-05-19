@@ -39,7 +39,6 @@ import { ref } from '@vue/reactivity';
 export default {
     props:["table","documents","user","player"],
     setup(props){
-        console.log(props.player.cards)
         const demand = ref([])
 
         const chosen = ref('')

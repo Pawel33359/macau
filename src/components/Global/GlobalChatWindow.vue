@@ -39,7 +39,6 @@ export default {
 
     onUpdated(() => {
       messages.value.scrollTop = messages.value.scrollHeight;
-      //console.log(messages.value.scrollHeight)
     });
 
     return { error, documents, formattedDocuments, messages };
@@ -48,10 +47,6 @@ export default {
 </script>
 
 <style>
-/*.chat-window {
-    background-color:rgba(255, 255, 255, 0);
-    padding: 30px 20px;
-  }*/
 .new_message {
   margin: 10px;
   border-radius: 20px;

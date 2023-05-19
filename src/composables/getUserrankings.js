@@ -9,7 +9,6 @@ const getUserrankings = (query) => {
   // register the firestore collection reference
   let collectionRef = projectFirestore.collection('user_ranking')
     .orderBy('points','desc')
-  //console.log(collectionRef)
   
   if(query){
     collectionRef = collectionRef.where(...query)
@@ -25,7 +24,6 @@ const getUserrankings = (query) => {
     rankings.value = results
     error.value = null
   }, err => {
-    console.log(err.message)
     rankings.value = null    
     error.value = 'could not fetch the data'
   })

@@ -17,7 +17,6 @@ const getTables = (field,action,value) => {
     }
       catch(err){
         error.value = err.message
-        console.log(error.value)
       }
     }
 

@@ -14,6 +14,7 @@ n<template>
         <div class="error" v-if="error">{{ error }}</div>
         <button v-if="!isPending">Log in</button>
         <button v-if="isPending" disabled>Loading</button>
+        <AnonymousLogin />
       </form>
     </div>
 
@@ -32,9 +33,10 @@ import useLogin from "@/composables/useLogin";
 //other
 import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
+import AnonymousLogin from "../../components/AnonymousLogin.vue";
 
 export default {
-  components: { Img, Title },
+  components: { Img, Title, AnonymousLogin },
   setup() {
     const { error, login, isPending } = useLogin();
     const router = useRouter();
@@ -54,5 +56,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

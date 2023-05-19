@@ -22,7 +22,6 @@ export default {
     props:["table","documents","user","player"],
     setup(props){
         //creating aces
-        console.log(props.player.cards)
         const aces = ref([])
         const chosen = ref('')
         var suits = ["c","d","s","h"]

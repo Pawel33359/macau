@@ -71,7 +71,6 @@ export default {
         }
       }else{
         error.value = "There can't be more than 4 players at a table"
-        console.log(error.value)
       }
     }
 

@@ -60,7 +60,6 @@ import { ref } from '@vue/reactivity';
 export default {
     props:["table","documents","nextuserid","previoususerid","user","player"],
     setup(props){
-        console.log(props.player.cards)
         //chosen card
         const chosen = ref('')
 

@@ -9,7 +9,6 @@ const getWatchedtables = (query) => {
     // register the firestore collection reference
     let collectionRef = projectFirestore.collection('tables')
       .orderBy('name','asc')
-    //console.log(collectionRef)
     
     if(query){
       collectionRef = collectionRef.where(...query)
@@ -25,7 +24,6 @@ const getWatchedtables = (query) => {
       tables.value = results
       error.value = null
     }, err => {
-      console.log(err.message)
       tables.value = null    
       error.value = 'could not fetch the data'
     })

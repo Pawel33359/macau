@@ -9,7 +9,6 @@ const getCollection = (collection,query) => {
   // register the firestore collection reference
   let collectionRef = projectFirestore.collection(collection)
     .orderBy('createdAt')
-  //console.log(collectionRef)
   
   if(query){
     collectionRef = collectionRef.where(...query)
@@ -26,7 +25,6 @@ const getCollection = (collection,query) => {
     documents.value = results
     error.value = null
   }, err => {
-    console.log(err.message)
     documents.value = null    
     error.value = 'could not fetch the data'
   })

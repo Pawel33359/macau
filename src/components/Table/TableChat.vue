@@ -35,7 +35,6 @@ export default {
 
     onUpdated(() => {
       messages.value.scrollTop = messages.value.scrollHeight;
-      //console.log(messages.value.scrollHeight)
     });
 
     return {messages,formattedDocuments,colname}

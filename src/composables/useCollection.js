@@ -20,7 +20,6 @@ const useCollection = (collection) => {
       return res
     }
     catch(err) {
-      console.log(err.message)
       error.value = 'could not add to database'
       isPending.value = false
     }
