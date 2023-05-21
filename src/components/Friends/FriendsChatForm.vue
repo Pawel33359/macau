@@ -12,7 +12,7 @@
 
 <script>
 //composables
-import useDocument from "@/composables/useDocument";
+import useDocument from "@/composables/use/useDocument";
 //other
 import { ref } from "vue";
 

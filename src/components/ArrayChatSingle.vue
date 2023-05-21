@@ -17,8 +17,8 @@
 
 <script>
 //composables
-import getDocument from "@/composables/getDocument";
-import useDocument from "@/composables/useDocument";
+import getDocument from "@/composables/get/getDocument";
+import useDocument from "@/composables/use/useDocument";
 
 export default {
     props:["doc","user","colname","docid"],

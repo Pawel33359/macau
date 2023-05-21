@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import useDocument from "@/composables/useDocument";
+import useDocument from "@/composables/use/useDocument";
 
 import { ref } from "@vue/reactivity";
 

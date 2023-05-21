@@ -4,9 +4,9 @@
 
 <script>
 //composables
-import getDatabase from "@/composables/getDatabase";
-import useDatabase from "@/composables/useDatabase";
-import useDocument from "@/composables/useDocument";
+import getDatabase from "@/composables/get/getDatabase";
+import useDatabase from "@/composables/use/useDatabase";
+import useDocument from "@/composables/use/useDocument";
 //other
 import { useRouter } from "vue-router";
 

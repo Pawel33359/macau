@@ -32,7 +32,7 @@
 import GlobalChatWindow from "./Global/GlobalChatWindow.vue";
 import Ranking from "./Ranking/Ranking.vue";
 //composables
-import getUser from "@/composables/getUser"
+import getUser from "@/composables/get/getUser"
 
 export default {
   components: { GlobalChatWindow, Ranking },

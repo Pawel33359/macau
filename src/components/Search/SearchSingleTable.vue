@@ -28,7 +28,7 @@
 
 <script>
 //composables
-import useDocument from "@/composables/useDocument";
+import useDocument from "@/composables/use/useDocument";
 //other
 import { useRouter } from "vue-router";
 

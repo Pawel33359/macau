@@ -1,6 +1,6 @@
 import { ref } from "@vue/reactivity";
-import { projectFirestore } from "../firebase/config";
-import { FieldValue } from "../firebase/config";
+import { projectFirestore } from "../../firebase/config";
+import { FieldValue } from "../../firebase/config";
 
 const useDocument = (collection, id) => {
   const error = ref(null);

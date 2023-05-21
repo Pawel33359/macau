@@ -12,7 +12,7 @@
 
 <script>
 //composables
-import getDocument from '@/composables/getDocument'
+import getDocument from '@/composables/get/getDocument'
 
 export default {
     props: ['id'],

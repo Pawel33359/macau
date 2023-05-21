@@ -26,7 +26,7 @@
 //components
 import SingleRanking from './SingleRanking.vue'
 //composables
-import getUserrankings from "@/composables/getUserrankings";
+import getUserrankings from "@/composables/get/getUserrankings";
 //other
 import { computed } from '@vue/runtime-core'
 import { ref } from '@vue/reactivity'

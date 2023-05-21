@@ -20,10 +20,10 @@
 //components
 import TableInprogress from "@/components/Table/TableInprogress.vue";
 //composables
-import useDocument from "@/composables/useDocument";
-import getDocument from "@/composables/getDocument";
-import getDatabase from "@/composables/getDatabase";
-import useDatabase from "@/composables/useDatabase";
+import useDocument from "@/composables/use/useDocument";
+import useDatabase from "@/composables/use/useDatabase";
+import getDocument from "@/composables/get/getDocument";
+import getDatabase from "@/composables/get/getDatabase";
 import game from "@/composables/game";
 //other
 import { ref } from '@vue/reactivity';

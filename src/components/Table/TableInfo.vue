@@ -35,8 +35,8 @@ import TableChat from "@/components/Table/TableChat.vue";
 import TableNewChatForm from "@/components/Table/TableNewChatForm.vue";
 import Surrender from "@/components/Table/Surrender.vue";
 //composables
-import useDocument from "@/composables/useDocument";
-import getDocument from "@/composables/getDocument";
+import useDocument from "@/composables/use/useDocument";
+import getDocument from "@/composables/get/getDocument";
 //other
 import { useRouter } from "vue-router";
 

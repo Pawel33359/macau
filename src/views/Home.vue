@@ -23,7 +23,20 @@
         >
           Friendlist
         </button>
-        <button @click="handleClick" class="logout">Logout</button>
+        <button
+          @click="handleClick"
+          class="logout btn__bottom"
+          v-if="!user.isAnonymous"
+        >
+          Logout
+        </button>
+        <button
+          @click="$router.push({ name: 'CreateAccount' })"
+          class="account btn__bottom"
+          v-else
+        >
+          Create an account
+        </button>
       </div>
     </div>
 
@@ -39,8 +52,8 @@ import LeftSide from "@/components/LeftSide.vue";
 import Title from "@/components/Title.vue";
 import UserInfo from "@/components/UserInfo.vue";
 //composables
-import useLogout from "../composables/useLogout";
-import getUser from "../composables/getUser";
+import useLogout from "../composables/use/useLogout";
+import getUser from "../composables/get/getUser";
 //other
 import { useRouter } from "vue-router";
 
@@ -70,16 +83,27 @@ export default {
 .menu {
   text-align: center;
 }
-.logout {
+
+.btn__bottom {
   margin-top: 100px;
   margin-bottom: 50px;
   width: 50%;
+}
+.logout {
   background-color: rgb(223, 83, 83);
 }
 .logout:hover {
   background-color: rgb(100, 16, 16);
   color: rgb(254, 254, 255);
 }
+.account {
+  background-color: #51cf66;
+}
+.account:hover {
+  background-color: #2b8a3e;
+  color: rgb(254, 254, 255);
+}
+
 .page {
   margin-top: 50px;
   display: block;

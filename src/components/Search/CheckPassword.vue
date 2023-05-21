@@ -1,83 +1,85 @@
 <template>
-<div v-if="table">
-    <div class="line" >
-    <div v-if="table.ranking == true"><h4>R</h4></div>
-    <div v-else><h4>N</h4></div>
-    <div class="name">Name: {{ table.name }}</div>
-    <div class="password" v-if="table.password != ''">
-      <font-awesome-icon icon="lock" />
+  <div v-if="table">
+    <div class="line">
+      <div v-if="table.ranking == true"><h4>R</h4></div>
+      <div v-else><h4>N</h4></div>
+      <div class="name">Name: {{ table.name }}</div>
+      <div class="password" v-if="table.password != ''">
+        <font-awesome-icon icon="lock" />
+      </div>
     </div>
-  </div>
-  <div class="line">
-    Users:
-    <div class="users" v-for="usr in table.users" :key="usr.userid">
-      {{ usr.name }}
+    <div class="line">
+      Users:
+      <div class="users" v-for="usr in table.users" :key="usr.userid">
+        {{ usr.name }}
+      </div>
     </div>
-  </div>
-  <!--Check password-->
+    <!--Check password-->
     <div>
-        <label>Password:</label>
-        <input type="text" v-model="password">
-        <div class="error" v-if="error">{{error}}</div>
-        <button class="btn btn-primary btn--resize" @click="handleEnter">Enter</button>
-        <button class="btn btn-secondary btn--resize" @click="$emit('handlePassword',singletable)">Cancel</button>
+      <label>Password:</label>
+      <input type="text" v-model="password" />
+      <div class="error" v-if="error">{{ error }}</div>
+      <button class="btn btn-primary btn--resize" @click="handleEnter">
+        Enter
+      </button>
+      <button
+        class="btn btn-secondary btn--resize"
+        @click="$emit('handlePassword', singletable)"
+      >
+        Cancel
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 //composables
-import getDocument from "@/composables/getDocument";
-import useDocument from "@/composables/useDocument";
+import getDocument from "@/composables/get/getDocument";
+import useDocument from "@/composables/use/useDocument";
 //other
 import { useRouter } from "vue-router";
-import { ref } from '@vue/reactivity'
+import { ref } from "@vue/reactivity";
 
 export default {
-    props:["tableid","user"],
-    setup(props){
-      const { error, document: table } = getDocument("tables",props.tableid);
-      const router = useRouter()
+  props: ["tableid", "user"],
+  setup(props) {
+    const { error, document: table } = getDocument("tables", props.tableid);
+    const router = useRouter();
 
-      const password = ref('')
-      const singletable = ref([])
-
-
+    const password = ref("");
+    const singletable = ref([]);
 
     //curent user information for table
     const currentuser = {
       name: props.user.displayName,
       userid: props.user.uid,
-      ready: false
-    }
-    
-    
-    const handleEnter = async()=>{
+      ready: false,
+    };
+
+    const handleEnter = async () => {
       //getting updateDoc function adding user to table and pushing user to table
-      const { updateDoc} = useDocument("tables", table.value.id)
-      if(table.value.users.length <4){
-        if(password.value == table.value.password){
+      const { updateDoc } = useDocument("tables", table.value.id);
+      if (table.value.users.length < 4) {
+        if (password.value == table.value.password) {
           await updateDoc({
-            users:[...table.value.users, currentuser]
-          })
-          if(!error.value){
-            router.push({ name: "Table",params: { id: table.value.id } });
+            users: [...table.value.users, currentuser],
+          });
+          if (!error.value) {
+            router.push({ name: "Table", params: { id: table.value.id } });
+          } else {
+            error.value = "Failed to update table";
           }
-          else{
-            error.value = "Failed to update table"
-          }
-        }else{
-          error.value = "Wrong password"
+        } else {
+          error.value = "Wrong password";
         }
-      }else{
-        error.value = "There can't be more than 4 players at a table"
+      } else {
+        error.value = "There can't be more than 4 players at a table";
       }
-    }
+    };
 
-
-      return {password,singletable,table,error,handleEnter}
-    }
-}
+    return { password, singletable, table, error, handleEnter };
+  },
+};
 </script>
 
 <style>

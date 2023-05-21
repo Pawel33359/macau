@@ -3,15 +3,13 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-h1{
-    text-align: center;
-    padding:5px;
-    font-size: 70px;
+h1 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 70px;
 }
 </style>

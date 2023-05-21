@@ -33,7 +33,7 @@ true- invites
 import FriendsListSingle from "@/components/Friends/FriendsListSingle.vue"
 import FriendsInvite from "@/components/Friends/FriendsInvite.vue"
 //composables
-import getCollection from "@/composables/getCollection";
+import getCollection from "@/composables/get/getCollection";
 
 export default {
     components:{FriendsListSingle,FriendsInvite},

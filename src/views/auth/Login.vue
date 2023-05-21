@@ -29,7 +29,7 @@ n<template>
 import Img from "@/components/Img.vue";
 import Title from "@/components/Title.vue";
 //composables
-import useLogin from "@/composables/useLogin";
+import useLogin from "@/composables/use/useLogin";
 //other
 import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";

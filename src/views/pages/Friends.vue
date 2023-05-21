@@ -55,7 +55,7 @@ import FriendsButtons from "@/components/Friends/FriendsButtons.vue"
 import FriendsList from "@/components/Friends/FriendsList.vue"
 import FriendsChat from "@/components/Friends/FriendsChat.vue"
 //composables
-import getUser from "@/composables/getUser"
+import getUser from "@/composables/get/getUser"
 
 export default {
     props:[ "id" ],

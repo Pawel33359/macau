@@ -55,8 +55,8 @@ import ChangeIcon from "@/components/Profile/ChangeIcon.vue";
 import Statistics from "@/components/Profile/Statistics.vue";
 import Invite from "@/components/Profile/Invite.vue";
 //composables
-import getUser from "@/composables/getUser";
-import getDocument from "@/composables/getDocument";
+import getUser from "@/composables/get/getUser";
+import getDocument from "@/composables/get/getDocument";
 //other
 import { computed } from "@vue/runtime-core";
 

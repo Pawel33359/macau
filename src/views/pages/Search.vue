@@ -50,7 +50,7 @@ import UserInfo from "@/components/UserInfo.vue"
 import SearchButtons from "@/components/Search/SearchButtons.vue"
 import SearchTables from "@/components/Search/SearchTables.vue"
 //composables
-import getUser from "@/composables/getUser"
+import getUser from "@/composables/get/getUser"
 //other
 import { ref } from '@vue/reactivity'
 

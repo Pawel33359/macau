@@ -1,5 +1,5 @@
 import { ref } from "@vue/reactivity";
-import { projectFirestore } from "../firebase/config";
+import { projectFirestore } from "../../firebase/config";
 
 const getUserprofiles = (displayName) => {
   const profiles = ref([]);

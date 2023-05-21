@@ -9,8 +9,7 @@
 import { projectAuth } from "../firebase/config";
 import { useRouter } from "vue-router";
 
-import getUser from "@/composables/getUser";
-import useSetCollection from "@/composables/useSetCollection";
+import createProfileAndRanking from "../composables/createProfileAndRanking";
 import { ref } from "vue";
 
 export default {
@@ -25,7 +24,6 @@ export default {
         if (!res) {
           throw new Error("Could not complete signup");
         }
-  
 
         await res.user.updateProfile({
           displayName: `guest(${res.user.uid.slice(0, 5)}${res.user.uid.slice(
@@ -33,28 +31,7 @@ export default {
           )})`,
         });
 
-        const { user } = getUser();
-        {
-          const { setDoc } = useSetCollection("user_profile", user.value.uid);
-          const profile = {
-            icon: require("@/assets/icons/1.png"),
-            description: "",
-            won: 0,
-            lost: 0,
-            createdAt: user.value.metadata.creationTime,
-            name: user.value.displayName,
-          };
-          await setDoc(profile);
-        }
-        {
-          const { setDoc } = useSetCollection("user_ranking", user.value.uid);
-          const ranking = {
-            ranking_won: 0,
-            ranking_lost: 0,
-            points: 100,
-          };
-          await setDoc(ranking);
-        }
+        await createProfileAndRanking();
 
         isPending.value = false;
         router.push({ name: "Home" });

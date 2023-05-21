@@ -13,7 +13,7 @@
 import GlobalNewChatForm from "./GlobalNewChatForm.vue";
 import GlobalSingleChatWindow from "./GlobalSingleChatWindow.vue";
 //composables
-import getCollection from "@/composables/getCollection";
+import getCollection from "@/composables/get/getCollection";
 //other
 import { formatDistanceToNow } from "date-fns";
 import { computed } from "@vue/runtime-core";

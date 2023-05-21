@@ -52,7 +52,7 @@
 
 <script>
 //composables
-import useDatabase from "@/composables/useDatabase";
+import useDatabase from "@/composables/use/useDatabase";
 import game from "@/composables/game";
 //other
 import { ref } from '@vue/reactivity';

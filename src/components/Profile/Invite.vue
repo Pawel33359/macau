@@ -1,62 +1,62 @@
 <template>
   <div v-if="documents">
-    <button v-if="checkFriends()==false" @click="sendInvite" class="friend">Send invite</button>
+    <button v-if="checkFriends() == false" @click="sendInvite" class="friend">
+      Send invite
+    </button>
   </div>
 </template>
 
 <script>
 //composables
-import getCollection from "@/composables/getCollection";
-import useCollection from '@/composables/useCollection'
+import getCollection from "@/composables/get/getCollection";
+import useCollection from "@/composables/use/useCollection";
 //other
 import { timestamp } from "@/firebase/config";
 
 export default {
-    props: ["userid","profile"],
-    setup(props){
+  props: ["userid", "profile"],
+  setup(props) {
+    //get two friends inside array
+    const currentuser = { userid: props.userid };
+    const user = { userid: props.profile.id };
+    const users = [];
+    users.push(currentuser);
+    users.push(user);
 
-        //get two friends inside array
-            const currentuser ={userid: props.userid}
-            const user = {userid: props.profile.id}
-            const users = []
-            users.push(currentuser)
-            users.push(user)
+    const { documents } = getCollection(
+      "friendlist",
+      ["users", "array-contains", { userid: props.userid }]
+      //['users','==',users]
+    );
+    const { addDoc } = useCollection("friendlist");
 
-        const { documents } = getCollection("friendlist"
-        , ['users','array-contains',{userid: props.userid}]
-        //['users','==',users]
-        );
-        const {addDoc} = useCollection('friendlist')
-
-
-        const checkFriends = ()=>{
-          let check = false
-          for(let doc of documents.value){
-            for(let user of doc.users){
-              if(user.userid == props.profile.id){
-                check = true
-              }
-            }
+    const checkFriends = () => {
+      let check = false;
+      for (let doc of documents.value) {
+        for (let user of doc.users) {
+          if (user.userid == props.profile.id) {
+            check = true;
           }
-          return check;
         }
+      }
+      return check;
+    };
 
-
-        const sendInvite = async()=>{
-            //prepare document
-            const friends = {
-                users: users,
-                messages: [],
-                invite: false,
-                createdAt: timestamp(),
-                inviter: props.userid
-            }
-            //add to firestore
-            await addDoc(friends)
-        }
-        return {sendInvite,documents,checkFriends}
-    }
-}
+    const sendInvite = async () => {
+      //prepare document
+      const friends = {
+        users: users,
+        messages: [],
+        invite: false,
+        createdAt: timestamp(),
+        inviter: props.userid,
+      };
+      //add to firestore
+      await addDoc(friends);
+    };
+    return { sendInvite, documents, checkFriends };
+  },
+};
 </script>
 
 <style>

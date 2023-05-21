@@ -10,8 +10,8 @@
 
 <script>
 //composables
-import getUser from "@/composables/getUser";
-import useCollection from "@/composables/useCollection";
+import getUser from "@/composables/get/getUser";
+import useCollection from "@/composables/use/useCollection";
 //other
 import { ref } from "vue";
 import { timestamp } from "@/firebase/config";

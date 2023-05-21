@@ -6,7 +6,12 @@
       <!--check if it is to be edited or not -->
       <div v-if="mode == false">
         <h5>Click on icon to change</h5>
-        <img :src="profile.icon" @click="handleClick" width="150" class="owned"/>
+        <img
+          :src="profile.icon"
+          @click="handleClick"
+          width="150"
+          class="owned"
+        />
       </div>
       <div v-else>
         <div class="allicons">
@@ -35,14 +40,14 @@
     </div>
     <!-- it's not current user-->
     <div v-else>
-      <img :src="profile.icon" width="150" class="notyours"/>
+      <img :src="profile.icon" width="150" class="notyours" />
     </div>
   </div>
 </template>
 
 <script>
 //composables
-import useDocument from "@/composables/useDocument";
+import useDocument from "@/composables/use/useDocument";
 //other
 import { ref } from "@vue/reactivity";
 
@@ -63,8 +68,8 @@ export default {
 
     //load all icons to array icons
     for (var i = 1; i < 19; i++) {
-        icons.push({ iconurl: require('@/assets/icons/'+i+'.png') });
-      }
+      icons.push({ iconurl: require("@/assets/icons/" + i + ".png") });
+    }
 
     //check new icon to be used by user
     const checkIcon = (url) => {
@@ -121,16 +126,17 @@ button {
   margin-right: 5px;
   margin-bottom: 5px;
 }
-.notyours{
+.notyours {
   cursor: default;
 }
 
-img.owned{
+img.owned {
   border: 5px solid rgb(31, 15, 253);
 }
-img.owned:hover, img.allicons:hover{
-    transform: scale(1.1);
-    z-index: 2;
-    cursor: pointer;
+img.owned:hover,
+img.allicons:hover {
+  transform: scale(1.1);
+  z-index: 2;
+  cursor: pointer;
 }
 </style>

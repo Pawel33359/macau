@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { projectFirestore } from "../firebase/config";
+import { projectFirestore } from "../../firebase/config";
 
 const useSetCollection = (collection, userid) => {
   const error = ref(null);

@@ -15,8 +15,8 @@
 import TableInfo from "@/components/Table/TableInfo.vue";
 import TableGame from "@/components/Table/TableGame.vue";
 //composables
-import getDocument from "@/composables/getDocument";
-import getUser from '@/composables/getUser'
+import getDocument from "@/composables/get/getDocument";
+import getUser from '@/composables/get/getUser'
 
 export default {
     components: {TableInfo,TableGame},

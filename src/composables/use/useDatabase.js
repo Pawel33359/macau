@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { projectDatabase } from "../firebase/config";
+import { projectDatabase } from "../../firebase/config";
 
 const useDatabase = (database) => {
   const error = ref(null);
