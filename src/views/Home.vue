@@ -6,6 +6,9 @@
 
       <UserInfo :id="user.uid" />
       <div class="menu">
+        <button class="page" @click="goToComputer">
+          Play with Computer
+        </button>
         <button class="page" @click="$router.push({ name: 'Search' })">
           Search
         </button>
@@ -53,6 +56,7 @@ import Title from "@/components/Title.vue";
 import UserInfo from "@/components/UserInfo.vue";
 //composables
 import useLogout from "../composables/use/useLogout";
+import useSetCollection from "../composables/use/useSetCollection";
 import getUser from "../composables/get/getUser";
 //other
 import { useRouter } from "vue-router";
@@ -71,7 +75,30 @@ export default {
       router.push({ name: "Login" });
     };
 
-    return { handleClick, error, isPending, user };
+    const goToComputer = async () => {
+      const { setDoc } = useSetCollection("tables", user.value.uid);
+      const table = {
+        name: user.value.displayName,
+        password: "",
+        ranking: false,
+        messages: [],
+        inprogress: false,
+        computer: true,
+        users: [
+          {
+            userid: user.value.uid,
+            name: user.value.displayName,
+            ready: false,
+          },
+        ],
+      };
+      //add table to database
+      await setDoc(table);
+
+      router.push({ name: "Table", params: { id: user.value.uid } });
+    };
+
+    return { handleClick, error, isPending, user, goToComputer };
   },
 };
 </script>

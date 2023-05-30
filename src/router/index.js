@@ -14,7 +14,7 @@ import { projectAuth } from "../firebase/config";
 import { projectFirestore } from "../firebase/config";
 import { ref } from "@vue/reactivity";
 
-//check if user is logged in and if he is already sitting at a table
+//check if user is already sitting at a table
 
 const requireTable = async (to, from, next) => {
   let user = projectAuth.currentUser;
@@ -42,7 +42,7 @@ const requireTable = async (to, from, next) => {
   }
 };
 
-//check only if user is logged in
+//check if user is logged in
 
 const requireAuth = (to, from, next) => {
   let user = projectAuth.currentUser;
@@ -52,6 +52,7 @@ const requireAuth = (to, from, next) => {
     next();
   }
 };
+//check if user is not logged in
 const requireNoAuth = (to, from, next) => {
   let user = projectAuth.currentUser;
   if (user) {
@@ -61,6 +62,7 @@ const requireNoAuth = (to, from, next) => {
   }
 };
 
+//check if user is anonymous
 const requireAnonymous = (to, from, next) => {
   if (!projectAuth.currentUser.isAnonymous) {
     next({ name: "Home" });

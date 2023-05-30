@@ -41,7 +41,7 @@
 <script>
 //composables
 import useDatabase from "@/composables/use/useDatabase";
-import game from "@/composables/game";
+import game from "@/composables/game/game.js";
 //other
 import { ref } from "@vue/reactivity";
 
@@ -62,7 +62,7 @@ export default {
 
     const handleAccept = () => {
       //function card and next turn
-      const { turndatabase, ifmakao } = game(
+      const { turndatabase, ifmakao, demandMessage } = game(
         props.table,
         props.player,
         props.documents,
@@ -70,22 +70,21 @@ export default {
         []
       );
 
+      demandMessage(props.user.uid, chosen.value.value);
       //clean function
       const { addDat } = useDatabase("tables/" + props.table.id + "/function/");
 
       if (chosen.value.value == 0) {
         addDat({ amount: 0, type: "" });
-        ifmakao(props.user.uid);
-        turndatabase(1);
       } else {
         addDat({
           amount: props.documents.playercount.number - 1,
           type: "demandyes",
           value: chosen.value.value,
         });
-        ifmakao(props.user.uid);
-        turndatabase(1);
       }
+      ifmakao(props.user.uid);
+      turndatabase(1);
     };
 
     return { demand, chosen, handleAccept };

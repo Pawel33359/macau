@@ -18,7 +18,7 @@
 <script>
 //composables
 import useDatabase from "@/composables/use/useDatabase";
-import game from "@/composables/game";
+import game from "@/composables/game/game.js";
 //other
 import { ref } from "@vue/reactivity";
 
@@ -47,13 +47,16 @@ export default {
       const { addDat } = useDatabase("tables/" + props.table.id + "/function/");
       addDat({ amount: 0, type: "" });
       //change turn
-      const { turndatabase, ifmakao } = game(
+      const { turndatabase, ifmakao, aceMessage } = game(
         props.table,
         props.player,
         props.documents,
         [],
         []
       );
+
+      aceMessage(props.user.uid, chosen.value);
+
       ifmakao(props.user.uid);
       turndatabase(1);
     };

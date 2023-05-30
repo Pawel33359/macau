@@ -47,31 +47,11 @@
   </div>
   <!--players and drawpile and throwpile-->
   <div v-else class="w-100 h-100">
-    <div class="demandscreen">
-      <div
-        class="demand"
-        v-if="
-          documents.function.type == 'demandyes' ||
-            documents.function.type == 'demandjoker' ||
-            documents.function.type == 'demandjokerjack'
-        "
-      >
-        <div class="playerinfo">Demanded</div>
-        <div class="playerinfo" v-if="documents.function.value == 12">
-          card: Q
-        </div>
-        <div class="playerinfo" v-else>
-          card: {{ documents.function.value }}
-        </div>
-        <div class="playerinfo">
-          Turns left: {{ documents.function.amount }}
-        </div>
-      </div>
-    </div>
+    <TableDemandScreen :documents="documents" />
     <div class="draw w-25 h-25 row">
       <div class="col-xs-12 col-sm-6 mb-2 p-0">
         <img
-          @click="draw(user.uid)"
+          @click="draw(user.uid, userturn)"
           src="@/assets/cards/b1.png"
           width="80"
           class="drawpile"
@@ -184,7 +164,12 @@
           </div>
 
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div
+            v-if="
+              documents.makao.user == player.information.id &&
+                table.computer === false
+            "
+          >
             <button
               @click="makao(player.information.id)"
               class="btn btn-warning makao"
@@ -300,17 +285,21 @@
 import Ace from "@/components/Table/Ace.vue";
 import Joker from "@/components/Table/Joker.vue";
 import Demand from "@/components/Table/Demand.vue";
+import TableDemandScreen from "./TableDemandScreen.vue";
 //composables
 import getDatabase from "@/composables/get/getDatabase";
-import game from "@/composables/game";
+import game from "@/composables/game/game.js";
 //other
 import { ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 
 export default {
   //
-  components: { Ace, Joker, Demand },
+  components: { Ace, Joker, Demand, TableDemandScreen },
   props: ["table", "user", "profiles", "rankings"],
   setup(props) {
+    const store = useStore();
+
     //get user playing
     const { documents: player } = getDatabase(
       "tables/" + props.table.id + "/users/" + props.user.uid
@@ -319,7 +308,7 @@ export default {
     //get all users
     const { documents } = getDatabase("tables/" + props.table.id);
 
-    const { draw, throwcard, makao, stopmakao } = game(
+    const { draw, throwcard, computerThrowCard, makao, stopmakao } = game(
       props.table,
       player.value,
       documents.value,
@@ -375,11 +364,34 @@ export default {
       }
     }
 
+    // CHECKING IF ITS COMPUTER MOVE
+    if (props.table.computer === true) {
+      store.commit(
+        "changeIntervalFn",
+        setInterval(() => computerMove(), 1000)
+      );
+    }
+    const computerMove = () => {
+      const { documents } = getDatabase(
+        "tables/" + props.table.id + "/currentturn"
+      );
+      const currnetTurn = documents.value.turn - 1;
+      //If it's not user turn
+      if (currnetTurn !== 0) {
+        let nextId = currnetTurn + 1;
+        if (currnetTurn === 3) nextId = props.user.uid;
+        let prevId = currnetTurn - 1;
+        if (currnetTurn === 1) prevId = props.user.uid;
+        computerThrowCard(currnetTurn, nextId, prevId);
+      }
+    };
+
     return {
       placement,
       draw,
       throwcard,
       documents,
+      userturn,
       nextuserid,
       previoususerid,
       makao,
@@ -412,35 +424,11 @@ export default {
   background-color: rgb(14, 87, 14);
 }
 
-/*demand screen and text */
-.demandscreen {
-  position: absolute;
-  top: 0;
-  width: 110px;
-  height: 85px;
-  background-color: black;
-  border-bottom: 6px solid rgb(161, 56, 56);
-  border-right: 6px solid rgb(161, 56, 56);
-  border-left: 0px;
-  border-top: 0px;
-
-  border-style: ridge;
-}
-.demand {
-  font-size: large;
-  margin-left: 5px;
-  position: absolute;
-  bottom: 0;
-  width: 100px;
-}
-
 /*player information next to the cards */
 .currentturn {
   color: rgb(218, 60, 60);
 }
-.playerinfo {
-  color: aliceblue;
-}
+
 .mainplayer {
   margin-right: 10px;
 }

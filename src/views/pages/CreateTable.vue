@@ -150,6 +150,7 @@ export default {
               ranking: ifranking.value,
               messages: [],
               inprogress: false,
+              computer: false,
               users: [
                 {
                   userid: user.value.uid,
