@@ -1,7 +1,7 @@
 <template>
   <div class="description">
     <h5>Description:</h5>
-    <div v-if="mode == false">
+    <div v-if="mode === false">
       <div class="words overflow-auto">{{ profile.description }}</div>
       <button v-if="ownership" @click="handleClick">Change description</button>
     </div>
@@ -26,7 +26,7 @@ export default {
     const desc = ref(props.profile.description);
 
     const handleClick = async () => {
-      if (mode.value == true) {
+      if (mode.value === true) {
         await updateDoc({
           description: desc.value,
         });

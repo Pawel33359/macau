@@ -1,14 +1,14 @@
 <template>
   <div
     class="tablebackground h-100 w-100"
-    :class="{ notinprogress: table.inprogress == false }"
+    :class="{ notinprogress: table.inprogress === false }"
     v-if="table"
   >
-    <div v-if="table.inprogress == false">
+    <div v-if="table.inprogress === false">
       <button
         class="btn btn-primary"
         @click="handleReady"
-        v-if="ready == false"
+        v-if="ready === false"
       >
         Ready for game?
       </button>
@@ -59,7 +59,7 @@ export default {
     const rankings = ref([]);
     //if game in progress
     const assign = async () => {
-      for (var usr of props.table.users) {
+      for (const usr of props.table.users) {
         {
           const { document: profile } = await getDocument(
             "user_profile",
@@ -76,24 +76,24 @@ export default {
         }
       }
     };
-    if (props.table.inprogress == true) {
+    if (props.table.inprogress === true) {
       assign();
     }
 
     //ready for check if show cancel button
     const ready = ref(false);
-    for (var usr of props.table.users) {
-      if (usr.userid == props.user.uid) {
+    for (const usr of props.table.users) {
+      if (usr.userid === props.user.uid) {
         ready.value = usr.ready;
       }
     }
 
-    var currentuser = {
+    const currentuser = {
       name: props.user.displayName,
       userid: props.user.uid,
       ready: true,
     };
-    var pastuser = {
+    const pastuser = {
       name: props.user.displayName,
       userid: props.user.uid,
       ready: false,
@@ -107,10 +107,10 @@ export default {
         if (props.table.computer === false) ready = checkReady();
         else ready = { inprogr: true, playercount: 4 };
 
-        if (ready.inprogr == true && ready.playercount > 1) {
+        if (ready.inprogr === true && ready.playercount > 1) {
           const { deal } = game(props.table, { cards: [] }, [], [], []);
           deal();
-          for (var usr of props.table.users) {
+          for (const usr of props.table.users) {
             const { document: profile } = await getDocument(
               "user_profile",
               usr.userid
@@ -146,13 +146,13 @@ export default {
             );
             addDat({ user: "" });
           }
-          var turns = [];
-          for (var i = 1; i <= ready.playercount; i++) {
+          const turns = [];
+          for (let i = 1; i <= ready.playercount; i++) {
             turns.push(i);
           }
-          var result = [];
-          for (var i = ready.playercount; i > 0; i--) {
-            var j = Math.floor(Math.random() * i);
+          const result = [];
+          for (let i = ready.playercount; i > 0; i--) {
+            const j = Math.floor(Math.random() * i);
             result.push(turns[j]);
             turns.splice(j, 1);
           }
@@ -167,11 +167,11 @@ export default {
     };
 
     const checkReady = () => {
-      var inprogr = true;
-      var playercount = 0;
-      for (var usr of props.table.users) {
+      let inprogr = true;
+      let playercount = 0;
+      for (const usr of props.table.users) {
         playercount++;
-        if (usr.ready == false) {
+        if (usr.ready === false) {
           inprogr = false;
         }
       }
@@ -179,9 +179,9 @@ export default {
     };
 
     const setPlayers = async (result) => {
-      var order = 0;
+      let order = 0;
       const proms = [];
-      for (var usr of props.table.users) {
+      for (const usr of props.table.users) {
         const { addDat } = useDatabase(
           "tables/" + props.table.id + "/users/" + usr.userid + "/information/"
         );

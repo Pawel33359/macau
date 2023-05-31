@@ -6,11 +6,11 @@
         :src="ace.path"
         width="200"
         @click="chosen = ace"
-        :class="{ inuse: ace == chosen }"
+        :class="{ inuse: ace === chosen }"
       />
     </div>
   </div>
-  <div class="accept" v-if="chosen != ''">
+  <div class="accept" v-if="chosen !== ''">
     <button @click="handleAccept">Accept</button>
   </div>
 </template>
@@ -28,11 +28,11 @@ export default {
     //creating aces
     const aces = ref([]);
     const chosen = ref("");
-    var suits = ["c", "d", "s", "h"];
+    const suits = ["c", "d", "s", "h"];
 
-    for (var suit in suits) {
-      var path = require("@/assets/cards/" + suits[suit] + 1 + ".png");
-      var objecthand = { suit: suits[suit], value: 1, path: path };
+    for (const suit in suits) {
+      const path = require("@/assets/cards/" + suits[suit] + 1 + ".png");
+      const objecthand = { suit: suits[suit], value: 1, path: path };
       aces.value.push(objecthand);
     }
 

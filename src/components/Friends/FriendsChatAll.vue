@@ -40,14 +40,14 @@ export default {
 
 
     //if user doesn't belong to chat throw him to Home
-    var i = 0;
+    let i = 0;
     const router = useRouter();
-    for(var usr of props.friend.users){
-      if(usr.userid != props.user.uid){
+    for(let usr of props.friend.users){
+      if(usr.userid !== props.user.uid){
         i++
       }
     }
-    if(i==props.friend.users.length || props.friend.invite == false){
+    if(i==props.friend.users.length || props.friend.invite === false){
       router.push({ name: "Home" });
     }
 

@@ -70,7 +70,7 @@ export default {
     
  
     const ownership = computed(() => {
-      return profile.value && user.value && user.value.uid == profile.value.id;
+      return profile.value && user.value && user.value.uid === profile.value.id;
     });
 
    

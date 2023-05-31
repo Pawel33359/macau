@@ -1,10 +1,10 @@
 <template>
   <div v-if="table">
     <div class="line">
-      <div v-if="table.ranking == true"><h4>R</h4></div>
+      <div v-if="table.ranking === true"><h4>R</h4></div>
       <div v-else><h4>N</h4></div>
       <div class="name">Name: {{ table.name }}</div>
-      <div class="password" v-if="table.password != ''">
+      <div class="password" v-if="table.password !== ''">
         <font-awesome-icon icon="lock" />
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
       //getting updateDoc function adding user to table and pushing user to table
       const { updateDoc } = useDocument("tables", table.value.id);
       if (table.value.users.length < 4) {
-        if (password.value == table.value.password) {
+        if (password.value === table.value.password) {
           await updateDoc({
             users: [...table.value.users, currentuser],
           });

@@ -2,16 +2,16 @@
   <!--choosing functions-->
   <div
     v-if="
-      (documents.function.type == 'ace' ||
-        documents.function.type == 'joker' ||
-        documents.function.type == 'demandnot' ||
-        documents.function.type == 'demandjoker' ||
-        documents.function.type == 'demandjokerjack') &&
-        documents.currentturn.turn == placement[0]
+      (documents.function.type === 'ace' ||
+        documents.function.type === 'joker' ||
+        documents.function.type === 'demandnot' ||
+        documents.function.type === 'demandjoker' ||
+        documents.function.type === 'demandjokerjack') &&
+        documents.currentturn.turn === placement[0]
     "
     class="w-100 h-100"
   >
-    <div v-if="documents.function.type == 'ace'">
+    <div v-if="documents.function.type === 'ace'">
       <Ace
         :table="table"
         :documents="documents"
@@ -21,9 +21,9 @@
     </div>
     <div
       v-if="
-        documents.function.type == 'joker' ||
-          documents.function.type == 'demandjoker' ||
-          documents.function.type == 'demandjokerjack'
+        documents.function.type === 'joker' ||
+          documents.function.type === 'demandjoker' ||
+          documents.function.type === 'demandjokerjack'
       "
       class="h-100 w-100"
     >
@@ -36,7 +36,7 @@
         :player="player"
       />
     </div>
-    <div v-if="documents.function.type == 'demandnot'" class="h-100 w-100">
+    <div v-if="documents.function.type === 'demandnot'" class="h-100 w-100">
       <Demand
         :table="table"
         :documents="documents"
@@ -62,10 +62,10 @@
       </div>
     </div>
     <!--div v-if=documents if error remember-->
-    <div v-if="documents.playercount.number == 2">
+    <div v-if="documents.playercount.number === 2">
       <div v-for="player in documents.users" :key="player.information.turn">
         <div
-          v-if="player.information.turn == placement[0]"
+          v-if="player.information.turn === placement[0]"
           class="playercards w-50"
         >
           <!--playerinformation-->
@@ -74,8 +74,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -91,7 +92,7 @@
             />
           </div>
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div v-if="documents.makao.user === player.information.id">
             <button
               @click="makao(player.information.id)"
               class="btn btn-warning makao"
@@ -102,7 +103,7 @@
         </div>
 
         <div
-          v-if="player.information.turn == placement[1]"
+          v-if="player.information.turn === placement[1]"
           class="playerfrontcards w-50"
         >
           <!--playerinformation-->
@@ -111,8 +112,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -123,7 +125,7 @@
             <img src="@/assets/cards/b1.png" width="80" />
           </div>
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div v-if="documents.makao.user === player.information.id">
             <button
               @click="stopmakao(player.information.id)"
               class="btn btn-danger stop-makao-front"
@@ -137,7 +139,7 @@
     <div v-else>
       <div v-for="player in documents.users" :key="player.information.turn">
         <div
-          v-if="player.information.turn == placement[0]"
+          v-if="player.information.turn === placement[0]"
           class="playercards w-50"
         >
           <!--playerinformation-->
@@ -146,8 +148,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -166,7 +169,7 @@
           <!--makao button-->
           <div
             v-if="
-              documents.makao.user == player.information.id &&
+              documents.makao.user === player.information.id &&
                 table.computer === false
             "
           >
@@ -180,7 +183,7 @@
         </div>
 
         <div
-          v-if="player.information.turn == placement[1]"
+          v-if="player.information.turn === placement[1]"
           class="playerleftcards h-50"
         >
           <!--playerinformation-->
@@ -189,8 +192,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -201,7 +205,7 @@
             <img src="@/assets/cards/b1.png" width="80" />
           </div>
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div v-if="documents.makao.user === player.information.id">
             <button
               @click="stopmakao(player.information.id)"
               class="btn btn-danger stop-makao-left"
@@ -212,7 +216,7 @@
         </div>
 
         <div
-          v-if="player.information.turn == placement[2]"
+          v-if="player.information.turn === placement[2]"
           class="playerfrontcards w-50"
         >
           <!--playerinformation-->
@@ -221,8 +225,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -233,7 +238,7 @@
             <img src="@/assets/cards/b1.png" width="80" />
           </div>
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div v-if="documents.makao.user === player.information.id">
             <button
               @click="stopmakao(player.information.id)"
               class="btn btn-danger stop-makao-front"
@@ -244,7 +249,7 @@
         </div>
 
         <div
-          v-if="player.information.turn == placement[3]"
+          v-if="player.information.turn === placement[3]"
           class="playerrightcards h-50"
         >
           <!--playerinformation-->
@@ -253,8 +258,9 @@
             v-if="player.cards"
             :class="{
               currentturn:
-                player.information.turn == documents.currentturn.turn,
-              playerinfo: player.information.turn != documents.currentturn.turn,
+                player.information.turn === documents.currentturn.turn,
+              playerinfo:
+                player.information.turn !== documents.currentturn.turn,
             }"
           >
             {{ player.information.name }}
@@ -265,7 +271,7 @@
             <img src="@/assets/cards/b1.png" width="80" />
           </div>
           <!--makao button-->
-          <div v-if="documents.makao.user == player.information.id">
+          <div v-if="documents.makao.user === player.information.id">
             <button
               @click="stopmakao(player.information.id)"
               class="btn btn-danger stop-makao-right"
@@ -316,15 +322,15 @@ export default {
       props.rankings
     );
 
-    var userturn = player.value.information.turn;
+    const userturn = player.value.information.turn;
 
     //set placement around the table
     //placement[user,left,front,right]
     const placement = ref([]);
-    var j = userturn;
-    for (var i = 0; i < documents.value.playercount.number; i++) {
+    let j = userturn;
+    for (let i = 0; i < documents.value.playercount.number; i++) {
       placement.value.push(j);
-      if (j == documents.value.playercount.number) {
+      if (j === documents.value.playercount.number) {
         j = 1;
       } else {
         j++;
@@ -333,33 +339,33 @@ export default {
 
     //get next player and previous player
 
-    var nextuserid;
-    var nextuserturn;
-    var previoususerid;
-    var previoususerturn;
+    let nextuserid;
+    let nextuserturn;
+    let previoususerid;
+    let previoususerturn;
 
-    if (userturn == documents.value.playercount.number) {
+    if (userturn === documents.value.playercount.number) {
       nextuserturn = 1;
     } else {
       nextuserturn = userturn + 1;
     }
 
-    if (userturn == 1) {
+    if (userturn === 1) {
       previoususerturn = documents.value.playercount.number;
     } else {
       previoususerturn = userturn - 1;
     }
 
     //get next and previous user id
-    var users = Object.keys(documents.value.users);
-    for (var checkuser of users) {
+    const users = Object.keys(documents.value.users);
+    for (const checkuser of users) {
       const { documents: nuser } = getDatabase(
         "tables/" + props.table.id + "/users/" + checkuser
       );
-      if (nuser.value.information.turn == nextuserturn) {
+      if (nuser.value.information.turn === nextuserturn) {
         nextuserid = nuser.value.information.id;
       }
-      if (nuser.value.information.turn == previoususerturn) {
+      if (nuser.value.information.turn === previoususerturn) {
         previoususerid = nuser.value.information.id;
       }
     }

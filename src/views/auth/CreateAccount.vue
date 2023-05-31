@@ -60,7 +60,7 @@ export default {
     };
 
     const handleSubmit = async () => {
-      if (repeat_password.value == password.value) {
+      if (repeat_password.value === password.value) {
         const { profiles, load } = getUserprofiles(displayName.value);
         await load();
         if (profiles.value.length > 0) {

@@ -3,11 +3,11 @@
 true- invites
 -->
 <div v-if="documents" class="allfriends">
-    <div v-if="$store.state.friendsMode == false">
+    <div v-if="$store.state.friendsMode === false">
         <div v-for="doc in documents" :key="doc.createdAt">
             <div v-if="doc.invite==true">
                 <div v-for="usr in doc.users" :key="usr.userid">
-                    <div v-if="usr.userid != user.uid">
+                    <div v-if="usr.userid !== user.uid">
                         <FriendsListSingle  :doc="doc" :userid="usr.userid"/>
                     </div>
                 </div>
@@ -16,9 +16,9 @@ true- invites
     </div>
     <div v-else >
         <div v-for="doc in documents" :key="doc.createdAt">
-            <div v-if="doc.invite==false && doc.inviter != user.uid">
+            <div v-if="doc.invite==false && doc.inviter !== user.uid">
                 <div v-for="usr in doc.users" :key="usr.userid">
-                    <div v-if="usr.userid != user.uid" >
+                    <div v-if="usr.userid !== user.uid" >
                         <FriendsInvite  :doc="doc" :userid="usr.userid"/>
                     </div>
                 </div>

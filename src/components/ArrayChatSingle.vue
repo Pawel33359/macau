@@ -3,16 +3,16 @@
     <img
       :src="profile.icon"
       width="45"
-      :class="{ owned: profile.id == user.uid }"
+      :class="{ owned: profile.id === user.uid }"
   /></span>
   <div v-if="profile && doc.name" class="w-100 messagefield">
-    <div class="message_info" :class="{ ownmessage: profile.id == user.uid }">
+    <div class="message_info" :class="{ ownmessage: profile.id === user.uid }">
       <span class="created-at">{{ doc.creationtime }}</span>
       <span class="name">{{ doc.name }}:</span>
       <span class="text-break">{{ doc.text }}</span>
     </div>
     <div
-      v-if="profile.id == user.uid"
+      v-if="profile.id === user.uid"
       @click="deletemessage"
       class="deletemessage"
     >

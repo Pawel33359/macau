@@ -14,7 +14,7 @@
           <!--Ranking-->
           <div class="col-12 mt-2">Will it be a ranking table?</div>
           <!--Ranking buttons if it's not a ranking game-->
-          <div class="row" v-if="ifranking == false">
+          <div class="row" v-if="ifranking === false">
             <div class="col-md-2 col-sm-4">
               <button class="btn btn-primary" @click="ifranking = true">
                 Yes
@@ -38,7 +38,7 @@
           <!--Password-->
           <div class="col-12 mt-4">Will there be a password?</div>
           <!--Password buttons for no password option-->
-          <div class="row" v-if="ifpassword == false">
+          <div class="row" v-if="ifpassword === false">
             <div class="col-md-2 col-sm-4">
               <button class="btn btn-primary" @click="ifpassword = true">
                 Yes
@@ -140,7 +140,7 @@ export default {
           error.value = "Name already exists!";
         } else {
           //check if password is at least 4 characters long
-          if (password.value.length < 4 && ifpassword.value == true) {
+          if (password.value.length < 4 && ifpassword.value === true) {
             error.value = "Password needs to be at least 4 characters long!";
           } else {
             //check table

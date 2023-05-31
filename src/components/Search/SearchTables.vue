@@ -1,11 +1,11 @@
 <template>
   <div class="error" v-if="error">{{ error }}</div>
   <!--check wheter you are typing in password or not-->
-  <div v-if="checkpassword == false">
+  <div v-if="checkpassword === false">
     <!--All tables visible-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking == null && $store.state.ifpassword == null"
+      v-if="$store.state.ifranking === null && $store.state.ifpassword === null"
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -28,7 +28,7 @@
     <!--Sorted based on ranking-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking != null && $store.state.ifpassword == null"
+      v-if="$store.state.ifranking !== null && $store.state.ifpassword === null"
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -36,7 +36,7 @@
         <div
           v-if="
             table.name.substring(0, search.length).toLowerCase() ==
-              search.toLowerCase() && $store.state.ifranking == table.ranking
+              search.toLowerCase() && $store.state.ifranking === table.ranking
           "
         >
           <!--Sort Tables-->
@@ -53,7 +53,9 @@
     <!--if there is no password-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking == null && $store.state.ifpassword == false"
+      v-if="
+        $store.state.ifranking === null && $store.state.ifpassword === false
+      "
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -61,7 +63,7 @@
         <div
           v-if="
             table.name.substring(0, search.length).toLowerCase() ==
-              search.toLowerCase() && table.password == ''
+              search.toLowerCase() && table.password === ''
           "
         >
           <!--Sort Tables-->
@@ -76,7 +78,7 @@
     <!--if there is password-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking == null && $store.state.ifpassword == true"
+      v-if="$store.state.ifranking === null && $store.state.ifpassword === true"
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -84,7 +86,7 @@
         <div
           v-if="
             table.name.substring(0, search.length).toLowerCase() ==
-              search.toLowerCase() && table.password != ''
+              search.toLowerCase() && table.password !== ''
           "
         >
           <!--Sort Tables-->
@@ -101,7 +103,7 @@
     <!--if there is no password-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking != null && $store.state.ifpassword == false"
+      v-if="$store.state.ifranking !== null && $store.state.ifpassword === false"
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -110,8 +112,8 @@
           v-if="
             table.name.substring(0, search.length).toLowerCase() ==
               search.toLowerCase() &&
-              $store.state.ifranking == table.ranking &&
-              table.password == ''
+              $store.state.ifranking === table.ranking &&
+              table.password === ''
           "
         >
           <!--Sort Tables-->
@@ -126,7 +128,7 @@
     <!--if there is password-->
     <div
       class="alltables"
-      v-if="$store.state.ifranking != null && $store.state.ifpassword == true"
+      v-if="$store.state.ifranking !== null && $store.state.ifpassword === true"
     >
       <!--Check option-->
       <div v-for="table in tables" :key="table.id">
@@ -135,8 +137,8 @@
           v-if="
             table.name.substring(0, search.length).toLowerCase() ==
               search.toLowerCase() &&
-              $store.state.ifranking == table.ranking &&
-              table.password != ''
+              $store.state.ifranking === table.ranking &&
+              table.password !== ''
           "
         >
           <!--Sort Tables-->

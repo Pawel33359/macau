@@ -2,21 +2,21 @@
   <div class="titl">Choose card value to demand</div>
   <div class="cards">
     <div v-for="val in demand" :key="val.value">
-      <div v-if="val.value == 0">
+      <div v-if="val.value === 0">
         <div
           class="value"
           @click="chosen = val"
-          :class="{ inuse: val == chosen }"
+          :class="{ inuse: val === chosen }"
         >
           No
         </div>
       </div>
       <div v-else>
-        <div v-if="val.value == 12">
+        <div v-if="val.value === 12">
           <div
             class="value"
             @click="chosen = val"
-            :class="{ inuse: val == chosen }"
+            :class="{ inuse: val === chosen }"
           >
             Q
           </div>
@@ -25,7 +25,7 @@
           <div
             class="value"
             @click="chosen = val"
-            :class="{ inuse: val == chosen }"
+            :class="{ inuse: val === chosen }"
           >
             {{ val.value }}
           </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div class="accept" v-if="chosen != ''">
+  <div class="accept" v-if="chosen !== ''">
     <button @click="handleAccept">Accept</button>
   </div>
 </template>
@@ -53,9 +53,9 @@ export default {
     const chosen = ref("");
     demand.value.push({ value: 0 });
 
-    for (var i = 5; i < 13; i++) {
-      if (i != 11) {
-        var objecthand = { value: i };
+    for (let i = 5; i < 13; i++) {
+      if (i !== 11) {
+        const objecthand = { value: i };
         demand.value.push(objecthand);
       }
     }
@@ -74,7 +74,7 @@ export default {
       //clean function
       const { addDat } = useDatabase("tables/" + props.table.id + "/function/");
 
-      if (chosen.value.value == 0) {
+      if (chosen.value.value === 0) {
         addDat({ amount: 0, type: "" });
       } else {
         addDat({

@@ -4,8 +4,8 @@
       <h1>{{ table.name }}</h1>
       <div class="error" v-if="error">{{ error }}</div>
       <div v-for="usr in table.users" :key="usr.userid">
-        <div v-if="usr.userid == user.uid">
-          <div v-if="table.inprogress == true && table.computer === false">
+        <div v-if="usr.userid === user.uid">
+          <div v-if="table.inprogress === true && table.computer === false">
             <Surrender
               v-if="ranking && profile"
               :table="table"
@@ -16,7 +16,7 @@
           </div>
           <div v-else>
             <button
-              v-if="usr.ready == false || table.computer === true"
+              v-if="usr.ready === false || table.computer === true"
               class="page"
               @click="handleClick"
             >
@@ -28,7 +28,7 @@
       </div>
       <div class="userlist" v-if="!table.computer">
         <div v-for="user in table.users" :key="user.userid" class="users">
-          <h5 class="names" v-if="user.ready == false">{{ user.name }}</h5>
+          <h5 class="names" v-if="user.ready === false">{{ user.name }}</h5>
           <div v-else class="ready">
             <h5 class="names">{{ user.name }}</h5>
             <h5 class="readysign">Ready</h5>
@@ -84,7 +84,7 @@ export default {
       }
       await removeArrayObject("users", currentuser);
       if (!error.value) {
-        if (props.table.users.length == 0) {
+        if (props.table.users.length === 0) {
           deleteTable();
         } else {
           goBack();

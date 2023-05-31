@@ -2,7 +2,7 @@
   <div class="img h-100">
     <div class="cover h-100">
       <!--if you're looking at ranking-->
-      <div v-if="$store.state.currentMode == true" class="h-100">
+      <div v-if="$store.state.currentMode === true" class="h-100">
         <a
           href="#/"
           @click="$store.commit('changecurrentMode')"

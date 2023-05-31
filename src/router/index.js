@@ -29,13 +29,13 @@ const requireTable = async (to, from, next) => {
 
   for (const object of tables.value) {
     for (const singleuser of object.users) {
-      if (singleuser.userid == user.uid) {
+      if (singleuser.userid === user.uid) {
         tableid = object.id;
       }
     }
   }
 
-  if (tableid == null) {
+  if (tableid === null) {
     next();
   } else {
     next({ name: "Table", params: { id: tableid } });

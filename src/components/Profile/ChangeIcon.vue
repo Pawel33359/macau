@@ -4,7 +4,7 @@
     <!--check if it is current user profile or not -->
     <div v-if="ownership">
       <!--check if it is to be edited or not -->
-      <div v-if="mode == false">
+      <div v-if="mode === false">
         <h5>Click on icon to change</h5>
         <img
           :src="profile.icon"
@@ -19,7 +19,7 @@
             v-for="doc in icons"
             :key="doc.iconurl"
             class="single_icon"
-            :class="{ inuse: doc.iconurl == inuseicon }"
+            :class="{ inuse: doc.iconurl === inuseicon }"
           >
             <img
               :src="doc.iconurl"
@@ -31,7 +31,7 @@
         </div>
 
         <!--buttons for confirming change and canceling-->
-        <button disabled v-if="inuseicon == profile.icon">
+        <button disabled v-if="inuseicon === profile.icon">
           Confirm change
         </button>
         <button @click="handleChange" v-else>Confirm change</button>
@@ -57,7 +57,7 @@ export default {
     const { updateDoc } = useDocument("user_profile", props.profile.id);
 
     //used to store all icons url
-    var icons = [];
+    const icons = [];
 
     //used to check if it's in edit mode(true) or not(false)
     const mode = ref(false);
@@ -67,7 +67,7 @@ export default {
     inuseicon.value = props.profile.icon;
 
     //load all icons to array icons
-    for (var i = 1; i < 19; i++) {
+    for (let i = 1; i < 19; i++) {
       icons.push({ iconurl: require("@/assets/icons/" + i + ".png") });
     }
 
@@ -78,7 +78,7 @@ export default {
 
     //cancel button and click on icon to change
     const handleClick = () => {
-      if (mode.value == true) {
+      if (mode.value === true) {
         inuseicon.value = props.profile.icon;
       }
       mode.value = !mode.value;

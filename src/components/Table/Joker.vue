@@ -4,8 +4,8 @@
   <div
     class="cards"
     v-if="
-      documents.function.type == 'demandjoker' ||
-        documents.function.type == 'demandjokerjack'
+      documents.function.type === 'demandjoker' ||
+        documents.function.type === 'demandjokerjack'
     "
   >
     Hello
@@ -16,7 +16,7 @@
             :src="card.path"
             width="100"
             @click="chosen = card"
-            :class="{ inuse: card == chosen }"
+            :class="{ inuse: card === chosen }"
           />
         </div>
       </div>
@@ -26,7 +26,7 @@
             :src="card.path"
             width="100"
             @click="chosen = card"
-            :class="{ inuse: card == chosen }"
+            :class="{ inuse: card === chosen }"
           />
         </div>
       </div>
@@ -40,7 +40,7 @@
           :src="club.path"
           width="80"
           @click="chosen = club"
-          :class="{ inuse: club == chosen }"
+          :class="{ inuse: club === chosen }"
         />
       </div>
     </div>
@@ -50,7 +50,7 @@
           :src="diamond.path"
           width="80"
           @click="chosen = diamond"
-          :class="{ inuse: diamond == chosen }"
+          :class="{ inuse: diamond === chosen }"
         />
       </div>
     </div>
@@ -60,7 +60,7 @@
           :src="spade.path"
           width="80"
           @click="chosen = spade"
-          :class="{ inuse: spade == chosen }"
+          :class="{ inuse: spade === chosen }"
         />
       </div>
     </div>
@@ -70,12 +70,12 @@
           :src="heart.path"
           width="80"
           @click="chosen = heart"
-          :class="{ inuse: heart == chosen }"
+          :class="{ inuse: heart === chosen }"
         />
       </div>
     </div>
   </div>
-  <div class="accept" v-if="chosen != ''">
+  <div class="accept" v-if="chosen !== ''">
     <button @click="handleAccept">Accept</button>
   </div>
 </template>
@@ -103,18 +103,18 @@ export default {
     //demand cards and jack if nothing was thrown since demand
     const demand = ref([]);
     const demandjack = ref([]);
-    var suits = ["c", "d", "s", "h"];
+    const suits = ["c", "d", "s", "h"];
 
     if (
-      props.documents.function.type == "demandjoker" ||
-      props.documents.function.type == "demandjokerjack"
+      props.documents.function.type === "demandjoker" ||
+      props.documents.function.type === "demandjokerjack"
     ) {
-      for (var i = 0; i < 4; i++) {
-        var path = require("@/assets/cards/" +
+      for (let i = 0; i < 4; i++) {
+        const path = require("@/assets/cards/" +
           suits[i] +
           props.documents.function.value +
           ".png");
-        var objecthand = {
+        const objecthand = {
           suit: suits[i],
           value: props.documents.function.value,
           path: path,
@@ -122,10 +122,10 @@ export default {
         demand.value.push(objecthand);
       }
       //if no card was thrown since demand include jacks id
-      if (props.documents.function.type == "demandjokerjack") {
-        for (var i = 0; i < 4; i++) {
-          var path = require("@/assets/cards/" + suits[i] + 11 + ".png");
-          var objecthand = { suit: suits[i], value: 11, path: path };
+      if (props.documents.function.type === "demandjokerjack") {
+        for (let i = 0; i < 4; i++) {
+          const path = require("@/assets/cards/" + suits[i] + 11 + ".png");
+          const objecthand = { suit: suits[i], value: 11, path: path };
           demandjack.value.push(objecthand);
         }
       }
@@ -137,24 +137,24 @@ export default {
     const spades = ref([]);
     const hearts = ref([]);
 
-    for (var i = 1; i < 14; i++) {
-      var path = require("@/assets/cards/" + "c" + i + ".png");
-      var objecthand = { suit: "c", value: i, path: path };
+    for (let i = 1; i < 14; i++) {
+      const path = require("@/assets/cards/" + "c" + i + ".png");
+      const objecthand = { suit: "c", value: i, path: path };
       clubs.value.push(objecthand);
     }
-    for (var i = 1; i < 14; i++) {
-      var path = require("@/assets/cards/" + "d" + i + ".png");
-      var objecthand = { suit: "d", value: i, path: path };
+    for (let i = 1; i < 14; i++) {
+      const path = require("@/assets/cards/" + "d" + i + ".png");
+      const objecthand = { suit: "d", value: i, path: path };
       diamonds.value.push(objecthand);
     }
-    for (var i = 1; i < 14; i++) {
-      var path = require("@/assets/cards/" + "s" + i + ".png");
-      var objecthand = { suit: "s", value: i, path: path };
+    for (let i = 1; i < 14; i++) {
+      const path = require("@/assets/cards/" + "s" + i + ".png");
+      const objecthand = { suit: "s", value: i, path: path };
       spades.value.push(objecthand);
     }
-    for (var i = 1; i < 14; i++) {
-      var path = require("@/assets/cards/" + "h" + i + ".png");
-      var objecthand = { suit: "h", value: i, path: path };
+    for (let i = 1; i < 14; i++) {
+      const path = require("@/assets/cards/" + "h" + i + ".png");
+      const objecthand = { suit: "h", value: i, path: path };
       hearts.value.push(objecthand);
     }
 
@@ -181,10 +181,10 @@ export default {
       addmiddlecard(chosen.value);
 
       if (
-        props.documents.function.type == "demandjoker" ||
-        props.documents.function.type == "demandjokerjack"
+        props.documents.function.type === "demandjoker" ||
+        props.documents.function.type === "demandjokerjack"
       ) {
-        if (chosen.value.value == 11) {
+        if (chosen.value.value === 11) {
           functiondemand();
         } else {
           demanddecrease(props.documents);
@@ -199,20 +199,20 @@ export default {
         );
         addDat({ amount: 0, type: "" });
         //check if it was function card
-        if (chosen.value.value == 2 || chosen.value.value == 3) {
+        if (chosen.value.value === 2 || chosen.value.value === 3) {
           function23(chosen.value, props.nextuserid, props.user.uid);
-        } else if (chosen.value.value == 4) {
+        } else if (chosen.value.value === 4) {
           functionstop(props.user.uid);
-        } else if (chosen.value.value == 13) {
+        } else if (chosen.value.value === 13) {
           functionking(
             chosen.value,
             props.nextuserid,
             props.previoususerid,
             props.user.uid
           );
-        } else if (chosen.value.value == 1) {
+        } else if (chosen.value.value === 1) {
           functionsuit();
-        } else if (chosen.value.value == 11) {
+        } else if (chosen.value.value === 11) {
           functiondemand();
         } else {
           ifmakao(props.user.uid);

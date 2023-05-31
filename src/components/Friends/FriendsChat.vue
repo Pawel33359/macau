@@ -3,7 +3,7 @@
   <div class="img h-100">
     <div class="cover h-100" v-if="friend">
       <div v-for="usr in friend.users" :key="usr.userid">
-        <div v-if="usr.userid != user.uid"><UserInfo :id="usr.userid" /></div>
+        <div v-if="usr.userid !== user.uid"><UserInfo :id="usr.userid" /></div>
       </div>
 
       <button

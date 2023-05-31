@@ -21,7 +21,7 @@ setup(props){
      //leave table if game in progress
             const handleSurrender = async()=>{
                 const { documents: playernumber } = await getDatabase("tables/" + props.table.id + "/playercount/");
-                var playercount = playernumber.value.number -1
+                const playercount = playernumber.value.number -1
                 updateplayercount(playercount)
 
                 
@@ -33,18 +33,18 @@ setup(props){
                 if(props.table.ranking ==true){
                     rankinglost()
                 }
-                if(playercount == 1){
+                if(playercount === 1){
                             const { deleteDat } = useDatabase("tables/" + props.table.id);
                             await deleteDat()
 
-                            for(var usr of props.table.users){
+                            for(const usr of props.table.users){
                                 //users for cleanup after game
-                                var readyfalseuser = {
+                                const readyfalseuser = {
                                     name: usr.name,
                                     userid: usr.userid,
                                     ready: false
                                 }
-                                var currentuser = {
+                                const currentuser = {
                                     name: usr.name,
                                     userid: usr.userid,
                                     ready: true
@@ -86,7 +86,7 @@ setup(props){
             }
             const profilelost = async()=>{
                 const { updateDoc } = await useDocument("user_profile", props.user.uid);
-                var lost = props.profile.lost                    
+                let lost = props.profile.lost                    
                 lost+=1
                 //update database
                 updateDoc({
@@ -95,8 +95,8 @@ setup(props){
             }
             const rankinglost = async()=>{
                 const { updateDoc } = await useDocument("user_ranking", props.user.uid);
-                var rankpoints = props.ranking.points
-                var ranklost = props.ranking.ranking_lost
+                let rankpoints = props.ranking.points
+                let ranklost = props.ranking.ranking_lost
                 rankpoints-= 5
                 ranklost+=1
                 updateDoc({

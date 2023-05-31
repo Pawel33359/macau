@@ -1,6 +1,6 @@
 <template>
   <div v-if="documents">
-    <button v-if="checkFriends() == false" @click="sendInvite" class="friend">
+    <button v-if="checkFriends() === false" @click="sendInvite" class="friend">
       Send invite
     </button>
   </div>
@@ -34,7 +34,7 @@ export default {
       let check = false;
       for (let doc of documents.value) {
         for (let user of doc.users) {
-          if (user.userid == props.profile.id) {
+          if (user.userid === props.profile.id) {
             check = true;
           }
         }

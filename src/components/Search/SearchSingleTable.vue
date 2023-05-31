@@ -1,14 +1,14 @@
 <template>
-  <div v-if="table.inprogress == false" class="singletable">
+  <div v-if="table.inprogress === false" class="singletable">
     <div
       class="line"
       @click="handleClick"
       :class="{ notfull: table.users.length < 4 }"
     >
-      <div v-if="table.ranking == true"><h4>R</h4></div>
+      <div v-if="table.ranking === true"><h4>R</h4></div>
       <div v-else><h4>N</h4></div>
       <div class="name table__name">Name: {{ table.name }}</div>
-      <div class="password" v-if="table.password != ''">
+      <div class="password" v-if="table.password !== ''">
         <font-awesome-icon icon="lock" />
       </div>
     </div>
@@ -48,9 +48,9 @@ export default {
 
     //go to table
     const handleClick = async () => {
-      if (props.table.users.length < 4 || props.table.inprogress == false) {
+      if (props.table.users.length < 4 || props.table.inprogress === false) {
         //if table doesn't have password
-        if (props.table.password == "") {
+        if (props.table.password === "") {
           await updateDoc({
             users: [...props.table.users, currentuser],
           });

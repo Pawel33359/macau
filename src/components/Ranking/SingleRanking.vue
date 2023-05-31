@@ -15,7 +15,7 @@
       <img
         :src="profile.icon"
         width="70"
-        :class="{ owned: profile.id == user.uid }"
+        :class="{ owned: profile.id === user.uid }"
       />
     </router-link>
   </td>

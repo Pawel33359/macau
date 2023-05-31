@@ -3,13 +3,13 @@
     <div
       class="demand"
       v-if="
-        documents.function.type == 'demandyes' ||
-          documents.function.type == 'demandjoker' ||
-          documents.function.type == 'demandjokerjack'
+        documents.function.type === 'demandyes' ||
+          documents.function.type === 'demandjoker' ||
+          documents.function.type === 'demandjokerjack'
       "
     >
       <div class="playerinfo">Demanded</div>
-      <div class="playerinfo" v-if="documents.function.value == 12">
+      <div class="playerinfo" v-if="documents.function.value === 12">
         card: Q
       </div>
       <div class="playerinfo" v-else>card: {{ documents.function.value }}</div>
